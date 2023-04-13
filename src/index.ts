@@ -3,6 +3,7 @@ import styles from "./components/card/card.css"
 import { loadCss } from "./utils/styles"
 import { fetchAPI } from "./services/data"
 import Card, { Attribute } from "./components/card/card"
+import Button, { AttributeButton } from "./components/Button/Button"
 
 class AppContainer extends HTMLElement {
     cardList: Card[] = [];
@@ -34,6 +35,8 @@ class AppContainer extends HTMLElement {
     render(cardList:any) {
         const mainApp = this.ownerDocument.createElement('section');
         mainApp.className = "mainApp";
+        const counterButton = this.ownerDocument.createElement('app-button')
+        mainApp.appendChild(counterButton);
         this.cardList.forEach((itemCard) => {
             mainApp.appendChild(itemCard)
         })
