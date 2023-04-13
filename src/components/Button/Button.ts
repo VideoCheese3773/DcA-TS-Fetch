@@ -33,16 +33,24 @@ export default class Button extends HTMLElement {
         this.attachShadow({ mode: 'open' })
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.render();
     }
 
-    render(){
-        if(this.shadowRoot) this.shadowRoot.innerHTML = '';
+    render() {
+        if (this.shadowRoot) this.shadowRoot.innerHTML = '';
         const button = this.ownerDocument.createElement('button');
-        button.innerText = `${this.btn_text}`
-        button.addEventListener('click',() =>{
+        if (localStorage.getItem('count')) {
+            let actualValue = localStorage.getItem('count');
+            button.innerText = `${actualValue}`;
+            this.counter = +actualValue!;
+        }
+        else {
+            button.innerText = `${this.btn_text}`
+        }
+        button.addEventListener('click', () => {
             this.counter = this.counter! + 1;
+            localStorage.setItem('count', this.counter.toString())
             button.innerText = `${this.counter}`
         })
         this.shadowRoot?.appendChild(button);
